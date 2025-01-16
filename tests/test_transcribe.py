@@ -48,6 +48,4 @@ def test_reverse_transcribe():
     #assert value error is raised for invalid input
     with pytest.raises(KeyError):
         reverse_transcribe("ATCGZ")
-
-
     pass
