@@ -9,33 +9,37 @@ def main():
     The main function
     """
     # Create instance of FastaParser
-    fasta_parser = FastaParser("tests/test.fa")
-    #fasta_parser.parse() ?
+    fasta_parser = FastaParser("data/test.fa")
+    
     # Create instance of FastqParser
-    fastaq_parser = FastqParser("tests/test.fq")
+    fastaq_parser = FastqParser("data/test.fq")
 
-    # For each record of FastaParser, Transcribe the sequence
-    # and print it to console
-    for record in fasta_parser.parse():
-    #for record in fasta_parser: ?
-        print(transcribe(record[1]))
+    # For each record of FastaParser, Transcribe the sequence and print it to console
+    with open(fasta_parser.filename, "r") as file:
+        for record in fasta_parser._get_record(file):
+            print(transcribe(record[1]))
+           
+   
        
-    # For each record of FastqParser, Transcribe the sequence
-    # and print it to console
-    for record in fastaq_parser.parse():
-        print(transcribe(record[1])) #check 
+    # For each record of FastqParser, Transcribe the sequence and print it to console
+    with open (fastaq_parser.filename, "r") as file:
+        for record in fastaq_parser.get_record(file):
+            print(transcribe(record[1])) 
+        
 
 
-    # For each record of FastaParser, Reverse Transcribe the sequence
-    # and print it to console
-    for record in fasta_parser.parse():
-        print(reverse_transcribe(record[1]))
+    # For each record of FastaParser, Reverse Transcribe the sequence and print it to console
+    with open(fasta_parser.filename, "r") as file:
+        for record in fasta_parser._get_record(file):
+            print(reverse_transcribe(record[1]))
+           
        
-    # For each record of FastqParser, Reverse Transcribe the sequence
-    # and print it to console
-    for record in fastaq_parser.parse():
-        print(reverse_transcribe(record[1], True))
-
+    # For each record of FastqParser, Reverse Transcribe the sequence and print it to console
+    with open (fastaq_parser.filename, "r") as file:
+        for record in fastaq_parser.get_record(file):
+            print(reverse_transcribe(record[1]))
+         
+   
 
 """
 When executing a python script from the command line there will

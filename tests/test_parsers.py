@@ -34,22 +34,26 @@ def test_FastaParser():
     provided in /tests/bad.fa and /tests/empty.fa
     """
     
-    fasta_parser = FastaParser("tests/test.fa")
+    fasta_parser = FastaParser("data/test.fa")
     #test that the file is being read in properly
     assert fasta_parser.filename == "tests/test.fa"
     #test that the first line matches the expected output
-    assert fasta_parser.parse()[0] == ('>seq0', 'TGATT') # include carrot?
-
+    with open(fasta_parser.filename, "r") as file:
+        assert fasta_parser.get_record(file)[0] == ">seq0"
+  
 
     #test that value error is raised for blank file
     fasta_parser = FastaParser("tests/blank.fa")
     with pytest.raises(ValueError, "This is a blank Fasta file"):
-        fasta_parser.parse()
+        for record in fasta_parser: #trigger iteration of empty file
+            pass
 
     #test that value error is raised for corrupted file
     fasta_parser = FastaParser("tests/bad.fa")
     with pytest.raises(ValueError, "This is a corrupted Fasta file"):
-        fasta_parser.parse()
+        for record in fasta_parser: #trigger iteration of empty file
+            pass
+        
        
     pass
 
@@ -59,20 +63,20 @@ def test_FastaFormat():
     Test to make sure that a fasta file is being read in if a fastq file is
     read, the first item is None
     """
-    file = "tests/test.fa"
-    #fasta_parser = FastaParser("tests/test.fa")
-    fasta_parser = FastaParser(file)
+    
+    fasta_parser = FastaParser("data/test.fa")
     #test that the file is being read in properly
-    assert fasta_parser.filename == "tests/test.fa"
+    assert fasta_parser.filename == "data/test.fa"
     #test that the first item is not None
-    assert fasta_parser.get_record(file)[0] != None
-    #assert fasta_parser.parse()[0] != None
+    with open(fasta_parser.filename, "r") as file:
+        assert fasta_parser.get_record(file)[0] != "None"
 
 
-    fasta_parser = FastaParser("tests/test.fq") 
+    fasta_parser = FastaParser("data/test.fq") 
     #test that value error is raised if fastq file is read in
     with pytest.raises(ValueError, "This is not a Fasta file"):
-        fasta_parser.parse()
+        for record in fasta_parser: #trigger iteration of wrong file
+            pass
 
     pass
 
@@ -84,22 +88,25 @@ def test_FastqParser():
     in the example Fastq File.
     """
    
-    fastq_parser = FastqParser("tests/test.fq")
+    fastq_parser = FastqParser("data/test.fq")
     #test that the file is being read in properly
-    assert fastq_parser.filename == "tests/test.fq"
+    assert fastq_parser.filename == "data/test.fq"
     #test that the first item matches the expected output
-    assert fastq_parser.parse()[0] == ('@seq0', 'TGTG') #double check this is expected output
+    with open(fastq_parser.filename, "r") as file:
+        assert fastq_parser.get_record(file)[0] == ('seq0') #double check this is expected output
 
     '''
     #test that value error is raised for blank file
     fastq_parser = FastqParser("tests/blank.fq")    #create blank file to test
     with pytest.raises(ValueError, "This is a blank Fastq file"):
-        fastq_parser.parse()
-
+        for record in fastq_parser:  #trigger iteration of empty file 
+            pass
+            
     #test that value error is raised for corrupted file 
     fastq_parser = FastqParser("tests/bad.fq")  #create corrupted file to test
     with pytest.raises(ValueError, "This is a corrupted Fastq file"):
-        fastq_parser.parse()
+        for record in fastq_parser:  #trigger iteration of corrupted file 
+            pass
     '''
 
     pass
@@ -110,15 +117,19 @@ def test_FastqFormat():
     first line is None
     """
 
-    fastq_parser = FastqParser("tests/test.fq")
+    fastq_parser = FastqParser("data/test.fq")
     #test that the file is being read in properly
-    assert fastq_parser.filename == "tests/test.fq"
-    #test tha first item is not None
-    assert fastq_parser.parse()[0] != None
+    assert fastq_parser.filename == "data/test.fq"
 
-    fastq_parser = FastqParser("tests/test.fa")
+    #test tha first item is not None
+    with open(fastq_parser.filename, "r") as file:
+        assert fastq_parser.get_record(file)[0] != "None"
+    
+
+    fastq_parser = FastqParser("data/test.fa")
     #test that a value error is raised if fasta file is read in
     with pytest.raises(ValueError, "This is not a Fastq file"):
-        fastq_parser.parse()
+        for record in fastq_parser: #trigger iteration of wrong file
+            pass
 
     pass

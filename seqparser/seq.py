@@ -12,10 +12,11 @@ def transcribe(seq: str, reverse: bool = False) -> str:
     """
    
     #read in sequence as array of letters
+    seq = seq.upper()
     seq = list(seq)
-    for base in seq:
-        #map base to complement ( A:U)
-        seq[base] = TRANSCRIPTION_MAPPING[base]
+    for ix, base in enumerate(seq):
+        #map base to complement (A:U)
+        seq[ix] = TRANSCRIPTION_MAPPING[base]
     if reverse:
         seq = seq[::-1]
     return str(seq)
