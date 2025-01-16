@@ -19,7 +19,7 @@ def transcribe(seq: str, reverse: bool = False) -> str:
         seq[ix] = TRANSCRIPTION_MAPPING[base]
     if reverse:
         seq = seq[::-1]
-    return str(seq)
+    return "".join(seq)
 
 
 
