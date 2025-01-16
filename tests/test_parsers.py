@@ -36,7 +36,8 @@ def test_FastaParser():
     
     fasta_parser = FastaParser("tests/test.fa")
     #test that the file is being read in properly
-    assert fasta_parser.file == "tests/test.fa"
+    #assert fasta_parser.file == "tests/test.fa" #x has .file attribute
+    assert fasta_parser.filename == "tests/test.fa"
     #test that the first line matches the expected output
     assert fasta_parser.parse()[0] == ('>seq0', 'TGATT') # include carrot?
 
