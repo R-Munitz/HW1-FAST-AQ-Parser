@@ -71,7 +71,8 @@ def test_FastaFormat():
     assert fasta_parser.filename == "data/test.fa"
     #test that the first item is not None
     with open(fasta_parser.filename, "r") as file:
-        assert fasta_parser.get_record(file)[0] != "None"
+        first_record = next(fasta_parser.get_record(file))
+        assert first_record[0] != "None"
 
 
     fasta_parser = FastaParser("data/test.fq") 
@@ -129,13 +130,12 @@ def test_FastqFormat():
     with open(fastq_parser.filename, "r") as file:
         first_record = next(fastq_parser.get_record(file))
         assert first_record[0] != "None"
-        #assert fastq_parser.get_record(file)[0] != "None"
     
 
     fastq_parser = FastqParser("data/test.fa")
     #test that a value error is raised if fasta file is read in
     with pytest.raises(ValueError):
-        for record in fastq_parser: #trigger iteration of wrong file
+        for record in fastq_parser.get_record(fastq_parser.filename): #trigger iteration of wrong file
             pass
-
+            #doesn't pass
     pass

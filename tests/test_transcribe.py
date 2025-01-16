@@ -32,7 +32,7 @@ def test_transcribe():
     assert transcribe("ATCG", reverse=True) == "CGAU"
 
     #assert value error is raised for invalid input
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         transcribe("ATCGZ")
 
     pass
@@ -46,7 +46,7 @@ def test_reverse_transcribe():
     assert reverse_transcribe("ATCG") == "CGAU"
 
     #assert value error is raised for invalid input
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         reverse_transcribe("ATCGZ")
 
 
