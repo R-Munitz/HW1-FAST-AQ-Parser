@@ -36,10 +36,12 @@ def test_FastaParser():
     
     fasta_parser = FastaParser("data/test.fa")
     #test that the file is being read in properly
-    assert fasta_parser.filename == "tests/test.fa"
+    assert fasta_parser.filename == "data/test.fa"
     #test that the first line matches the expected output
     with open(fasta_parser.filename, "r") as file:
-        assert fasta_parser.get_record(file)[0] == ">seq0"
+        first_record = next(fasta_parser.get_record(file))
+        assert first_record[0] == "seq0"
+        #assert fasta_parser.get_record(file)[0] == ">seq0"
   
 
     #test that value error is raised for blank file
@@ -93,7 +95,9 @@ def test_FastqParser():
     assert fastq_parser.filename == "data/test.fq"
     #test that the first item matches the expected output
     with open(fastq_parser.filename, "r") as file:
-        assert fastq_parser.get_record(file)[0] == ('seq0') #double check this is expected output
+        first_record = next(fastq_parser.get_record(file))
+        assert first_record[0] == "seq0"
+        #assert fastq_parser.get_record(file)[0] == ('seq0') #double check this is expected output
 
     '''
     #test that value error is raised for blank file
@@ -123,7 +127,9 @@ def test_FastqFormat():
 
     #test tha first item is not None
     with open(fastq_parser.filename, "r") as file:
-        assert fastq_parser.get_record(file)[0] != "None"
+        first_record = next(fastq_parser.get_record(file))
+        assert first_record[0] != "None"
+        #assert fastq_parser.get_record(file)[0] != "None"
     
 
     fastq_parser = FastqParser("data/test.fa")
