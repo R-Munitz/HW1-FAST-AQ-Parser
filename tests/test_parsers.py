@@ -36,7 +36,6 @@ def test_FastaParser():
     
     fasta_parser = FastaParser("tests/test.fa")
     #test that the file is being read in properly
-    #assert fasta_parser.file == "tests/test.fa" #x has .file attribute
     assert fasta_parser.filename == "tests/test.fa"
     #test that the first line matches the expected output
     assert fasta_parser.parse()[0] == ('>seq0', 'TGATT') # include carrot?
@@ -63,9 +62,10 @@ def test_FastaFormat():
    
     fasta_parser = FastaParser("tests/test.fa")
     #test that the file is being read in properly
-    assert fasta_parser.file == "tests/test.fa"
+    assert fasta_parser.filename == "tests/test.fa"
     #test that the first item is not None
-    assert fasta_parser.parse()[0] != None
+    assert fasta_parser.get_record()[0] != None
+    #assert fasta_parser.parse()[0] != None
 
 
     fasta_parser = FastaParser("tests/test.fq") 
@@ -85,7 +85,7 @@ def test_FastqParser():
    
     fastq_parser = FastqParser("tests/test.fq")
     #test that the file is being read in properly
-    assert fastq_parser.file == "tests/test.fq"
+    assert fastq_parser.filename == "tests/test.fq"
     #test that the first item matches the expected output
     assert fastq_parser.parse()[0] == ('@seq0', 'TGTG') #double check this is expected output
 
@@ -111,7 +111,7 @@ def test_FastqFormat():
 
     fastq_parser = FastqParser("tests/test.fq")
     #test that the file is being read in properly
-    assert fastq_parser.file == "tests/test.fq"
+    assert fastq_parser.filename == "tests/test.fq"
     #test tha first item is not None
     assert fastq_parser.parse()[0] != None
 
