@@ -59,12 +59,13 @@ def test_FastaFormat():
     Test to make sure that a fasta file is being read in if a fastq file is
     read, the first item is None
     """
-   
-    fasta_parser = FastaParser("tests/test.fa")
+    file = "tests/test.fa"
+    #fasta_parser = FastaParser("tests/test.fa")
+    fasta_parser = FastaParser(file)
     #test that the file is being read in properly
     assert fasta_parser.filename == "tests/test.fa"
     #test that the first item is not None
-    assert fasta_parser.get_record()[0] != None
+    assert fasta_parser.get_record(file)[0] != None
     #assert fasta_parser.parse()[0] != None
 
 
