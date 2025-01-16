@@ -46,13 +46,13 @@ def test_FastaParser():
 
     #test that value error is raised for blank file
     fasta_parser = FastaParser("tests/blank.fa")
-    with pytest.raises(ValueError, "This is a blank Fasta file"):
+    with pytest.raises(ValueError):
         for record in fasta_parser: #trigger iteration of empty file
             pass
 
     #test that value error is raised for corrupted file
     fasta_parser = FastaParser("tests/bad.fa")
-    with pytest.raises(ValueError, "This is a corrupted Fasta file"):
+    with pytest.raises(ValueError):
         for record in fasta_parser: #trigger iteration of empty file
             pass
         
@@ -76,7 +76,7 @@ def test_FastaFormat():
 
     fasta_parser = FastaParser("data/test.fq") 
     #test that value error is raised if fastq file is read in
-    with pytest.raises(ValueError, "This is not a Fasta file"):
+    with pytest.raises(ValueError):
         for record in fasta_parser: #trigger iteration of wrong file
             pass
 
@@ -102,13 +102,13 @@ def test_FastqParser():
     '''
     #test that value error is raised for blank file
     fastq_parser = FastqParser("tests/blank.fq")    #create blank file to test
-    with pytest.raises(ValueError, "This is a blank Fastq file"):
+    with pytest.raises(ValueError):
         for record in fastq_parser:  #trigger iteration of empty file 
             pass
             
     #test that value error is raised for corrupted file 
     fastq_parser = FastqParser("tests/bad.fq")  #create corrupted file to test
-    with pytest.raises(ValueError, "This is a corrupted Fastq file"):
+    with pytest.raises(ValueError):
         for record in fastq_parser:  #trigger iteration of corrupted file 
             pass
     '''
@@ -134,7 +134,7 @@ def test_FastqFormat():
 
     fastq_parser = FastqParser("data/test.fa")
     #test that a value error is raised if fasta file is read in
-    with pytest.raises(ValueError, "This is not a Fastq file"):
+    with pytest.raises(ValueError):
         for record in fastq_parser: #trigger iteration of wrong file
             pass
 
