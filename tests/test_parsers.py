@@ -41,7 +41,7 @@ def test_FastaParser():
     with open(fasta_parser.filename, "r") as file:
         first_record = next(fasta_parser.get_record(file))
         assert first_record[0] == "seq0"
-        #assert fasta_parser.get_record(file)[0] == ">seq0"
+
   
 
     #test that value error is raised for blank file
@@ -53,10 +53,9 @@ def test_FastaParser():
     #test that value error is raised for corrupted file
     fasta_parser = FastaParser("tests/bad.fa")
     with pytest.raises(ValueError):
-        for record in fasta_parser: #trigger iteration of empty file
+        for record in fasta_parser: #trigger iteration of corrupted file
             pass
         
-       
     pass
 
 
@@ -73,17 +72,6 @@ def test_FastaFormat():
     with open(fasta_parser.filename, "r") as file:
         first_record = next(fasta_parser.get_record(file))
         assert first_record[0] != "None"
-
-'''
-
-    fasta_parser = FastaParser("data/test.fq") 
-    #test that value error is raised if fastq file is read in
-    with pytest.raises(ValueError):
-        for record in fasta_parser: #trigger iteration of wrong file
-            pass
-            #doesn't pass, no value error raised by Parser class methods
-    pass
-'''
 
 def test_FastqParser():
     """
@@ -132,13 +120,3 @@ def test_FastqFormat():
         first_record = next(fastq_parser.get_record(file))
         assert first_record[0] != "None"
     
-'''
-    fastq_parser = FastqParser("data/test.fa")
-    #test that a value error is raised if fasta file is read in
-    with pytest.raises(ValueError):
-        for record in fastq_parser.get_record(fastq_parser.filename): #trigger iteration of wrong file
-            pass
-            #doesn't pass, no value error raised by Parser class methods
-
-    pass
-'''
